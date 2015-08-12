@@ -5,65 +5,62 @@ class RPS < Sinatra::Base
 
 	set :views, proc { File.join(root, '..', 'views') }
   set :public, proc { File.join(root, '..', 'public') }
+  
+  enable :sessions
 
   get '/' do
   	$g = Game.new
-  	$p1 = 0
-  	$p2 = 0 
-  	$best_of = 1
     erb :index
   end
 
   get '/gameplay' do
+    @name = params[:name]
   	erb :gameplay
   end
 
   post '/gameplay' do
-  	$name = params[:name]
-  	$best_of = params[:best_of]
+  	@name = params[:name]
+    session[:name] = @name
+  	@best_of = params[:best_of]
+
   	erb :gameplay 
+  end
+
+  post '/gameplay' do
+    @name = params[:name]
   end
 
   #This is not DRY - not happy with this section.
   get '/rock' do
+    @name = session[:name]
   	@computer_choice = $g.computer_choice
   	@result = $g.play(:rock, @computer_choice)
-  	if @result == "Player 1 Wins"
-  		$p1 += 1
-  	elsif @result == "Player 2 Wins"
-  		$p2 += 1
-  	end
 
-  	redirect '/result' if $p1 > (($best_of.to_i) * 0.5) || $p2 > (($best_of.to_i) * 0.5)
+  	redirect '/result' if $g.winner?
   	erb :rock
   end
 
   get '/paper' do
-  	@computer_choice = $g.computer_choice
-  	@result = $g.play(:paper, @computer_choice)
-  	if @result == "Player 1 Wins"
-  		$p1 += 1
-  	elsif @result == "Player 2 Wins"
-  		$p2 += 1
-  	end
+    @name = session[:name]
+    @computer_choice = $g.computer_choice
+    @result = $g.play(:paper, @computer_choice)
 
-  	redirect '/result' if $p1 > (($best_of.to_i) * 0.5) || $p2 > (($best_of.to_i) * 0.5)
+    redirect '/result' if $g.winner?
+    erb :paper
   end
 
   get '/scissors' do
+    @name = session[:name]
   	@computer_choice = $g.computer_choice
   	@result = $g.play(:scissors, @computer_choice)
-  	if @result == "Player 1 Wins"
-  		$p1 += 1
-  	elsif @result == "Player 2 Wins"
-  		$p2 += 1
-  	end
 
-  	redirect '/result' if $p1 > (($best_of.to_i) * 0.5) || $p2 > (($best_of.to_i) * 0.5)
+  	redirect '/result' if $g.winner?
   	erb :scissors
   end
 
 	get '/result' do
+    @name = session[:name]
+
 	  erb :result
 	end
 
