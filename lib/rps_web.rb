@@ -14,7 +14,7 @@ class RPS < Sinatra::Base
   end
 
   get '/gameplay' do
-    @name = params[:name]
+    @name = session[:name]
   	erb :gameplay
   end
 
@@ -27,7 +27,7 @@ class RPS < Sinatra::Base
   end
 
   post '/gameplay' do
-    @name = params[:name]
+    @name = session[:name]
   end
 
   #This is not DRY - not happy with this section.
