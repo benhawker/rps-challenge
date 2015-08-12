@@ -44,6 +44,7 @@ class RPS < Sinatra::Base
     @name = session[:name]
     @computer_choice = $g.computer_choice
     @result = $g.play(:paper, @computer_choice)
+    @p1_count = 
 
     redirect '/result' if $g.winner?
     erb :paper
