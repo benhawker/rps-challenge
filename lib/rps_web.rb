@@ -15,21 +15,18 @@ class RPS < Sinatra::Base
 
   get '/gameplay' do
     @name = session[:name]
-    # @best_of = session[:best_of]
   	erb :gameplay
   end
 
   post '/gameplay' do
   	@name = params[:name]
     session[:name] = @name
-  	# @best_of = params[:best_of]
-    # session[:best_of] = @best_of
+  	$g.best_of = params[:best_of]
   	erb :gameplay 
   end
 
   post '/gameplay' do
     @name = session[:name]
-    # @best_of = session[:best_of]
   end
 
   get '/rock' do
@@ -44,7 +41,6 @@ class RPS < Sinatra::Base
 
   get '/paper' do
     @name = session[:name]
-    # @best_of = session[:best_of]
     @computer_choice = $g.computer_choice
     @result = $g.play(:paper, @computer_choice)
 
@@ -54,7 +50,6 @@ class RPS < Sinatra::Base
 
   get '/scissors' do
     @name = session[:name]
-    # @best_of = session[:best_of]
   	@computer_choice = $g.computer_choice
   	@result = $g.play(:scissors, @computer_choice)
 

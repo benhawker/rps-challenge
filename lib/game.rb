@@ -37,7 +37,7 @@ DEFAULT_BEST_OF = 3
 	end
 
 	def winner?
-		true if @player_1_count > (@best_of/2) || @player_2_count > (@best_of/2)
+		true if @player_1_count > (@best_of.to_i/2.0) || @player_2_count > (@best_of.to_i/2.0)
 	end
 
 end
