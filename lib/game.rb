@@ -18,13 +18,13 @@ DEFAULT_BEST_OF = 3
 
 	def play (player1, player2)
 		if player1 == player2
-			"Draw"
+			:draw
 		elsif OPTIONS[player1] == player2
     	@player_2_count += 1
-    	"Player 2 Wins"
+    	:p2_wins
   	else
   		@player_1_count += 1
-    	"Player 1 Wins"
+    	:p1_wins
 		end
 	end
 
@@ -37,7 +37,7 @@ DEFAULT_BEST_OF = 3
 	end
 
 	def winner?
-		true if @player_1_count > 2 || @player_2_count > 2
+		true if @player_1_count > (@best_of/2) || @player_2_count > (@best_of/2)
 	end
 
 end

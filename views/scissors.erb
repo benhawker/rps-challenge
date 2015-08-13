@@ -1,15 +1,8 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-<h1> Hi, <%= @name %>! <% if @result == "Draw" %> 
-	It's a Draw!
-<% elsif @result == "Player 2 Wins" %>
-	You lose!
-<% elsif @result == "Player 1 Wins" %>
-	You win!
-<% end %>
+<h1> Hi, <%= @name %>! <%= result %>
 </h1>
-
 <p>Let's keep track of the score...</p>
 <p> <%= @name %> count = <%= $g.player_1_count %> </p>
 <p> Computer player count = <%= $g.player_2_count %> </p>

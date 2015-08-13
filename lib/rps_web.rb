@@ -9,30 +9,32 @@ class RPS < Sinatra::Base
   enable :sessions
 
   get '/' do
-  	$g = Game.new
+    $g = Game.new
     erb :index
   end
 
   get '/gameplay' do
     @name = session[:name]
+    # @best_of = session[:best_of]
   	erb :gameplay
   end
 
   post '/gameplay' do
   	@name = params[:name]
     session[:name] = @name
-  	@best_of = params[:best_of]
-
+  	# @best_of = params[:best_of]
+    # session[:best_of] = @best_of
   	erb :gameplay 
   end
 
   post '/gameplay' do
     @name = session[:name]
+    # @best_of = session[:best_of]
   end
 
-  #This is not DRY - not happy with this section.
   get '/rock' do
     @name = session[:name]
+    # @best_of = session[:best_of]
   	@computer_choice = $g.computer_choice
   	@result = $g.play(:rock, @computer_choice)
 
@@ -42,9 +44,9 @@ class RPS < Sinatra::Base
 
   get '/paper' do
     @name = session[:name]
+    # @best_of = session[:best_of]
     @computer_choice = $g.computer_choice
     @result = $g.play(:paper, @computer_choice)
-    @p1_count = 
 
     redirect '/result' if $g.winner?
     erb :paper
@@ -52,6 +54,7 @@ class RPS < Sinatra::Base
 
   get '/scissors' do
     @name = session[:name]
+    # @best_of = session[:best_of]
   	@computer_choice = $g.computer_choice
   	@result = $g.play(:scissors, @computer_choice)
 
@@ -61,9 +64,23 @@ class RPS < Sinatra::Base
 
 	get '/result' do
     @name = session[:name]
+    # @best_of = session[:best_of]
 
 	  erb :result
 	end
+
+  helpers do
+    def result
+      if @result == :draw 
+        "It's a Draw!"
+      elsif @result == :p2_wins
+        "You lose!"
+      else 
+        "You win!"
+      end
+    end
+  end 
+
 
   # start the server if ruby file executed directly
   run! if app_file == $0

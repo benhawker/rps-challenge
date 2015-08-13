@@ -9,14 +9,14 @@ feature "Starting a new game" do
     expect(page).to have_content "Choose Rock, Paper or Scissors, Bob!"
   end
 
-  #Currently not using this functionality
-  xscenario "User can choose Best of games number" do
-  	visit "/"
-  	fill_in "name_field", with: "Bob"
-    select "3", :from => "best_of"
-    click_on "submit_btn"
-    expect($best_of).to eq "3" 
-  end
+  # #Currently not using this functionality
+  # xscenario "User can choose Best of games number" do
+  # 	visit "/"
+  # 	fill_in "name_field", with: "Bob"
+  #   select "5", :from => "best_of"
+  #   click_on "submit_btn"
+  #   expect(@best_of).to eq "5" 
+  # end
 end
 
 # should also be testing Paper and Scissors - r is a bad id.

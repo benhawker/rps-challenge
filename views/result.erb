@@ -1,15 +1,17 @@
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-<% if $g.player_1_count > ((@best_of.to_i) * 0.5) %>
+<% if $g.player_1_count > (@best_of.to_i/2) %>
 <h1>
-<%= $name.capitalize %> wins the overall.
+<%= @name.capitalize %> wins the overall.
 </h1>
 
-<% elsif $g.player_2_count > ((@best_of.to_i) * 0.5) %>
+<% else %>
 <h1>Computer player wins the overall. </h1>
 
 <% end %>
 
 <img src=/champion.jpg>
+
+
 
